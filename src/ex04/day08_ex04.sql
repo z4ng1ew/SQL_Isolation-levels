@@ -1,7 +1,45 @@
-SELECT
-    prs.name,
-    COUNT(*) AS count_of_visits
-FROM person_visits
-    INNER JOIN person AS prs ON prs.id = person_visits.person_id
-GROUP BY prs.name
-HAVING COUNT(*) > 3;
+UPDATE pizzeria
+SET rating = 3.6
+WHERE name = 'Pizza Hut';
+
+
+-- Session #1
+
+BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+COMMIT;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+
+-- Session #2
+
+BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+UPDATE pizzeria
+SET rating = 3.6
+WHERE name = 'Pizza Hut';
+
+COMMIT;
+
+BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+UPDATE pizzeria
+SET rating = 3.0
+WHERE name = 'Pizza Hut';
+
+COMMIT;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';

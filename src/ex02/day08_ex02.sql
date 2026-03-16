@@ -1,25 +1,41 @@
-(
-    SELECT
-        pzr.name,
-        COUNT(*) AS count,
-        'visit' AS action_type
-    FROM person_visits
-        INNER JOIN pizzeria AS pzr ON pzr.id = person_visits.pizzeria_id
-    GROUP BY pzr.name
-    ORDER BY 2 DESC
-    LIMIT 3
-)
-UNION
-(
-    SELECT
-        pzr.name,
-        COUNT(*) AS count,
-        'order' AS action_type
-    FROM person_order
-        INNER JOIN menu AS mn ON person_order.menu_id = mn.id
-        INNER JOIN pizzeria AS pzr ON mn.pizzeria_id = pzr.id
-    GROUP BY pzr.name
-    ORDER BY 2 DESC
-    LIMIT 3
-)
-ORDER BY 3, 2 DESC;
+UPDATE pizzeria
+SET rating = 3.6
+WHERE name = 'Pizza Hut';
+
+
+-- Session #1
+
+BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+UPDATE pizzeria
+SET rating = 4
+WHERE name = 'Pizza Hut';
+
+COMMIT;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+
+-- Session #2
+
+BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+UPDATE pizzeria
+SET rating = 3.6
+WHERE name = 'Pizza Hut';
+
+COMMIT;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';

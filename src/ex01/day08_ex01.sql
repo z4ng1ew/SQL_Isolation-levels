@@ -1,8 +1,41 @@
-SELECT
-    prs.name,
-    COUNT(*) AS count_of_visits
-FROM person_visits
-    INNER JOIN person AS prs ON prs.id = person_visits.person_id
-GROUP BY prs.name
-ORDER BY 2 DESC, 1 ASC
-LIMIT 4;
+UPDATE pizzeria
+SET rating = 5
+WHERE name = 'Pizza Hut';
+
+
+-- Session #1
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+UPDATE pizzeria
+SET rating = 4
+WHERE name = 'Pizza Hut';
+
+COMMIT;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+
+-- Session #2
+
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+UPDATE pizzeria
+SET rating = 3.6
+WHERE name = 'Pizza Hut';
+
+COMMIT;
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';

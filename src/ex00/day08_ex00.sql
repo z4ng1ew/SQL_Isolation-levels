@@ -1,6 +1,29 @@
-SELECT
-    person_id,
-    COUNT(*) AS count_of_visits
-FROM person_visits
-GROUP BY person_id
-ORDER BY 2 DESC, 1 ASC;
+UPDATE pizzeria
+SET rating = 4.6
+WHERE name = 'Pizza Hut';
+
+
+-- Session #1
+
+BEGIN;
+
+UPDATE pizzeria
+SET rating = 5
+WHERE name = 'Pizza Hut';
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+COMMIT;
+
+
+-- Session #2
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+
+SELECT *
+FROM pizzeria
+WHERE name = 'Pizza Hut';
