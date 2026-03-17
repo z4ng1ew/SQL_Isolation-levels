@@ -1,6 +1,5 @@
-UPDATE pizzeria
-SET rating = 3.0
-WHERE name = 'Pizza Hut';
+DELETE FROM pizzeria
+WHERE id = 10;
 
 
 -- Session #1
@@ -23,9 +22,8 @@ FROM pizzeria;
 
 BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
-UPDATE pizzeria
-SET rating = 1
-WHERE name = 'Pizza Hut';
+INSERT INTO pizzeria (id, name, rating)
+VALUES (10, 'Kazan Pizza', 5);
 
 COMMIT;
 
