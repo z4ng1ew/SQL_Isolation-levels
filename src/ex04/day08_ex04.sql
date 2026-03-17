@@ -27,14 +27,6 @@ WHERE name = 'Pizza Hut';
 BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 
 UPDATE pizzeria
-SET rating = 3.6
-WHERE name = 'Pizza Hut';
-
-COMMIT;
-
-BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
-
-UPDATE pizzeria
 SET rating = 3.0
 WHERE name = 'Pizza Hut';
 
